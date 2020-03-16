@@ -8,3 +8,17 @@
     text-align: center;
     padding: 30px;
 }
+
+/* Quiz: Question */
+.question {
+    font-size: larger;
+    font-weight: bold;
+    padding: 15px;
+}
+
+/* Quiz: Answer Buttons */
+#A, #B, #C, #D {
+    display: block;
+    width: 50%;
+    margin: 10px;
+}

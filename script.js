@@ -15,7 +15,7 @@ var highscoreListEl = document.querySelector(".highscore-list");
   // make an object that contains an array of all the questions and answers
 var questionObj = [
   { 
-    q: "Commonly used data types DO NOT INCLUDE",
+    q: "Commonly used data types DO NOT INCLUDE:",
     a1: "1. Strings",
     a2: "2. Booleans",
     a3: "3. Alerts",
