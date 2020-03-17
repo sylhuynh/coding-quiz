@@ -11,6 +11,43 @@ var resultsEl = document.querySelector(".results");
 var saveNameEl = document.querySelector(".save-name");
 var highscoreListEl = document.querySelector(".highscore-list");
 
+// Start the quiz
+//when we click on the button, the quiz will start
+startBtnEl.addEventListener("click", startQuiz);
+startBtnEl.addEventListener("click", startTimer);
+
+
+function startQuiz() {
+  // hide the previous content 
+  startBtnEl.style.display = "none";
+  quizDescriptionEl.style.display = "none";
+  // display the questions and answers
+  displayQuestion();
+  // change the display for the quiz to become visible
+  quizEl.style.display = "block";
+};
+
+
+// Navigation bar timer
+var timerElement = document.querySelector(".timer");
+
+var secondsLeft = 75;
+var timerInterval;
+
+// Create the countdown timer
+function startTimer() {
+  timerInterval = setInterval(function () {
+    //update countdown
+    timerElement.textContent = "Time: " + secondsLeft;
+    secondsLeft--;
+
+    if (secondsLeft <= 0) {
+      timerElement.textContent = "Time: " + 0;
+    }
+  }, 1000);
+};
+
+
 // Create Questions
 // make an object that contains an array of all the questions and answers
 var questionObj = [
@@ -96,6 +133,16 @@ function checkAnswer(event) {
   else {
     // display text "wrong"
     resultsEl.textContent = "Wrong!"
+
+
+    secondsLeft -= 5;
+    if (secondsLeft <= 0) {
+      timerElement.textContent = "Time: " + 0;
+    }
+    else {
+      timerElement.textContent = "Time: " + secondsLeft;
+    }
+    startTimer();
   }
   
   // // // !!!!!! TODO: clear results
@@ -114,44 +161,3 @@ function checkAnswer(event) {
   // else 
   // !!!!!!! TODO: call upon the function that will show the save name list 
 };
-
-// Start the quiz
-//when we click on the button, the quiz will start
-startBtnEl.addEventListener("click", startQuiz);
-startBtnEl.addEventListener("click", startTimer);
-
-function startQuiz() {
-  // hide the previous content 
-  startBtnEl.style.display = "none";
-  quizDescriptionEl.style.display = "none";
-  // display the questions and answers
-  displayQuestion();
-  // change the display for the quiz to become visible
-  quizEl.style.display = "block";
-};
-
-
-// Navigation bar timer
-var timerElement = document.querySelector(".timer");
-
-var secondsLeft = 75;
-var timerInterval;
-
-// Create the countdown timer
-function startTimer() {
-  timerInterval = setInterval(function () {
-    //update countdown
-    timerElement.textContent = "Time: " + secondsLeft;
-    secondsLeft--;
-
-    if (secondsLeft === 0) {
-      clearInterval(timerInterval);
-    }
-  }, 1000);
-};
-
-// function subtractTime () {
-//   if (event.target.textContent !== questions.correct) {
-
-//   };
-// };
