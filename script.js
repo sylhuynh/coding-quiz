@@ -20,31 +20,30 @@ var questionObj = [
     a2: "2. Booleans",
     a3: "3. Alerts",
     a4: "4. Numbers",
-    correct: "C"
+    correct: "3. Alerts"
   }, 
   {
-    q: "This is question 2?",
-    a1: "A",
-    a2: "B",
-    a3: "C",
-    a4: "D",
-    correct: "A"
+    q: "The condition in an if/else statement is enclosed within:",
+    a1: "1. Quotes",
+    a2: "2. Curly Brackets",
+    a3: "3. Paranthesis",
+    a4: "4. Square Brackets",
+    correct: "2. Curly Brackets"
   }
 ];
 
 // Display question to user
-var lastQuestionObjIndex = questionObj.length-1; 
-var currentQuestionObjIndex = 0; 
+var questionObjIndex = 0; 
+var questions = questionObj[questionObjIndex]; 
 
 function displayQuestion() {
-  var questions = questionObj[currentQuestionObjIndex]; 
+  questions = questionObj[questionObjIndex]; 
   questionEl.textContent = questions.q;
   choiceAEl.textContent = questions.a1;
   choiceBEl.textContent = questions.a2;
   choiceCEl.textContent = questions.a3;
   choiceDEl.textContent = questions.a4;
 };
-// NEED TO CALL UPON THIS FUNC TO DISPLAY THE QUESTIONS AND ANSWER
 
 // Check the answer 
   // create variable to keep track of score
@@ -56,16 +55,16 @@ function displayQuestion() {
     choiceCEl.addEventListener("click", checkAnswer);
     choiceDEl.addEventListener("click", checkAnswer);
 
-    // when adding checkAnswer("A"); --> first question disappears
-function checkAnswer(answer) {
+function checkAnswer(event) {
   // if the correct answer is the same as user input 
-  var questions = questionObj[currentQuestionObjIndex]; 
-    if (questions.correct === answer ){
+
+  questions = questionObj[questionObjIndex]; 
+    if (event.target.textContent === questions.correct){
       // then increase the score by 1
       score++;
       // display text "correct" on the page
       resultsEl.textContent = "Correct!"
-        // !!!!!! BUG: correct answers are not being shown 
+        // !!!!!! BUG: correct answer text not being shown 
     }
   // else
     else {
@@ -75,13 +74,13 @@ function checkAnswer(answer) {
 
   // switch to next question
     // if the current question is not the last question 
-    if (currentQuestionObjIndex < lastQuestionObjIndex) {
+    if (questionObjIndex < questionObj.length-1) {
       // then continue to next question 
-      currentQuestionObjIndex++;
-      // !!!!!! TODO: clear results
-        // resultsEl.textContent = "";
+      questionObjIndex++;
       // display next question
       displayQuestion();
+      // // !!!!!! TODO: clear results
+      //   resultsEl.textContent = "";
     };
     // else 
       // !!!!!!! TODO: call upon the function that will show the save name list 
@@ -91,6 +90,7 @@ function checkAnswer(answer) {
 // Start the quiz
 //when we click on the button, the quiz will start
 startBtnEl.addEventListener("click", startQuiz);
+startBtnEl.addEventListener("click", startTimer);
 
   function startQuiz() {
     // hide the previous content 
@@ -107,14 +107,17 @@ startBtnEl.addEventListener("click", startQuiz);
 var timerElement = document.querySelector(".timer");
 
 var secondsLeft = 75;
+var timerInterval;
 
 // Create the countdown timer
-var timerInterval = setInterval(function () {
-  //update countdown
-  timerElement.textContent = "Time: " + secondsLeft;
-  secondsLeft--;
-
-  if (secondsLeft === 0) {
-    clearInterval(timerInterval);
-}
-}, 1000);
+function startTimer() { 
+  timerInterval = setInterval(function () {
+    //update countdown
+    timerElement.textContent = "Time: " + secondsLeft;
+    secondsLeft--;
+  
+    if (secondsLeft === 0) {
+      clearInterval(timerInterval);
+  }
+  }, 1000);
+};
