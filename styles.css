@@ -19,6 +19,6 @@
 /* Quiz: Answer Buttons */
 #A, #B, #C, #D {
     display: block;
-    width: 50%;
+    width: 70%;
     margin: 10px;
 }
