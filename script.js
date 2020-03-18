@@ -9,7 +9,8 @@ var choiceCEl = document.getElementById("C");
 var choiceDEl = document.getElementById("D");
 var resultsEl = document.querySelector(".results");
 var saveNameEl = document.querySelector(".save-name");
-var highscoreListEl = document.querySelector(".highscore-list");
+var inputForm = document.getElementById("input-form");
+var initials = document.getElementById("initials");
 
 // Start the quiz
 //when we click on the button, the quiz will start
@@ -108,7 +109,7 @@ function displayQuestion() {
 
 // Check the answer 
 // create variable to keep track of score
-var score = 0;
+var score;
 // when the user chooses an answer (clicks on the answer button)
 // call upon the checkAnswer function
 choiceAEl.addEventListener("click", checkAnswer);
@@ -119,16 +120,15 @@ choiceDEl.addEventListener("click", checkAnswer);
 function checkAnswer(event) {
   // if the correct answer is the same as user input 
 
-  
+
   questions = questionObj[questionObjIndex];
   if (event.target.textContent === questions.correct) {
     // then increase the score by 1
-    score++;
-    
+
     // display text "correct" on the page
     resultsEl.textContent = "Correct!"
   }
-  
+
   // else
   else {
     // display text "wrong"
@@ -144,10 +144,10 @@ function checkAnswer(event) {
     }
     startTimer();
   }
-  
+
   // // // !!!!!! TODO: clear results
   // resultsEl.textContent = "";
-  
+
   // switch to next question
   // if the current question is not the last question 
   if (questionObjIndex < questionObj.length - 1) {
@@ -156,8 +156,44 @@ function checkAnswer(event) {
 
     // display next question
     displayQuestion();
-  };
+  }
 
   // else 
-  // !!!!!!! TODO: call upon the function that will show the save name list 
+  else {
+    // stop the timer
+
+    score = secondsLeft;
+    // hide the quiz elements (questions and answers)
+    quizEl.style.display = "none";
+    // show the save name list 
+    saveNameEl.style.display = "block";
+    // display final score
+
+    saveForm();
+  }
+};
+
+var list = JSON.parse(localStorage.getItem("list"));
+
+function saveForm () {
+
+  if (list === null) {
+    list = [];
+  }
+  
+  inputForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    // get input
+    var newItem = initials.value.trim();
+   
+    // add input to list
+    list.push(newItem)
+  
+    // add to local storage
+    localStorage.setItem("list", JSON.stringify(list))
+  
+    // navigate to list page
+    document.location.href = "highscore-list.html";
+  });
+
 };
