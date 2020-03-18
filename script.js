@@ -48,7 +48,6 @@ function startTimer() {
   }, 1000);
 };
 
-
 // Create Questions
 // make an object that contains an array of all the questions and answers
 var questionObj = [
@@ -135,7 +134,7 @@ function checkAnswer(event) {
     resultsEl.textContent = "Wrong!"
 
 
-    secondsLeft -= 5;
+    secondsLeft -= 10;
     if (secondsLeft <= 0) {
       timerElement.textContent = "Time: " + 0;
     }
@@ -162,6 +161,7 @@ function checkAnswer(event) {
   else {
     // stop the timer
 
+    // assign the seconds left to the score
     score = secondsLeft;
     // hide the quiz elements (questions and answers)
     quizEl.style.display = "none";
@@ -169,6 +169,7 @@ function checkAnswer(event) {
     saveNameEl.style.display = "block";
     // display final score
 
+    // call function that displays the form to save name
     saveForm();
   }
 };
@@ -185,9 +186,14 @@ function saveForm () {
     event.preventDefault();
     // get input
     var newItem = initials.value.trim();
+
+    var personalRecord = {
+      name: newItem,
+      score: secondsLeft
+    };
    
     // add input to list
-    list.push(newItem)
+    list.push(personalRecord)
   
     // add to local storage
     localStorage.setItem("list", JSON.stringify(list))

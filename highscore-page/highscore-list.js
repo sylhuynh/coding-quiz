@@ -13,7 +13,8 @@ var listElement = document.getElementById("list");
 // display the list
 for (var i = 0; i < list.length; i++) {
   var newLiElement = document.createElement("li");
-  newLiElement.textContent = list[i];
+
+  newLiElement.textContent = list[i].name + " ---- " + list[i].score;
   listElement.appendChild(newLiElement);
 }
 
@@ -24,7 +25,15 @@ if (list.length === 0) {
 }
 
 // when the user clicks on the 'go back' btn
-  homeBtn.addEventListener("click", function(){
-    // the page redirects to index.html
-    document.location.href = "../index.html";
-  });
+homeBtn.addEventListener("click", function () {
+  // the page redirects to index.html
+  document.location.href = "../index.html";
+});
+
+// when the user clicks on the 'clear highscores' btn
+clearScores.addEventListener("click", function(){
+  // the data clears
+  listElement.textContent = "";
+
+});
+
