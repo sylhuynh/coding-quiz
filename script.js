@@ -193,7 +193,7 @@ function saveForm () {
     localStorage.setItem("list", JSON.stringify(list))
   
     // navigate to list page
-    document.location.href = "highscore-list.html";
+    document.location.href = "highscore-page/highscore-list.html";
   });
 
 };

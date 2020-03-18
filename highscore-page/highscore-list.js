@@ -1,3 +1,7 @@
+// assign variables 
+var homeBtn = document.getElementById("home-btn");
+var clearScores = document.getElementById("clear-scores");
+
 // get the list from storage
 var list = JSON.parse(localStorage.getItem("list"))
 if (list === null) {
@@ -18,3 +22,9 @@ if (list.length === 0) {
   messageElement.textContent = "No highscores yet!"
   document.body.appendChild(messageElement)
 }
+
+// when the user clicks on the 'go back' btn
+  homeBtn.addEventListener("click", function(){
+    // the page redirects to index.html
+    document.location.href = "../index.html";
+  });
